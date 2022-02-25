@@ -1,17 +1,14 @@
 const tilesProvider = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
 const latitud = -31.3882,
-  longitud = -64.1888;
-(latitud2 = -31.39), (longitud2 = -64.19);
+  longitud = -64.1888,
+  options = {
+    enableHightAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
 
-let myMap = L.map("myMap").setView([latitud, longitud], 16);
-
-L.tileLayer(tilesProvider, {
-  maxZoom: 20,
-}).addTo(myMap);
-
-let marcador = L.marker([latitud, longitud]).addTo(myMap);
-
+/* 
 // En iconoSergio establezco el ícono que agregaré con un segundo marcador
 let iconoSergio = L.icon({
   iconUrl: "marca.png",
@@ -23,6 +20,7 @@ let iconoSergio = L.icon({
 let marcador2 = L.marker([latitud2, longitud2], { icon: iconoSergio }).addTo(
   myMap
 );
+ */
 
 function getGeolocation(id) {
   // Podemos acceder a la función de la geolocalización a través de navigator.geolocation (por eso no usamos ese nombre en esta función)
@@ -42,13 +40,26 @@ function getGeolocation(id) {
   const success = (position) => {
     $id.innerHTML = `<p><mark>Tu posición actual es:</mark></p>`;
     if (position.coords.altitude === null) {
+      // No muestra la altitud
       $id.innerHTML = `<ul>
     <li>Latitud: <b>${position.coords.latitude}</b></li>
     <li>Longitud: <b>${position.coords.longitude}</b></li>
     <li>Presición de GPS: <b>${position.coords.accuracy.toFixed(0)}m</b></li>
    </ul>
    `;
+      // Código para pintar el mapa
+      let myMap = L.map("myMap").setView([latitud, longitud], 14);
+
+      L.tileLayer(tilesProvider, {
+        maxZoom: 20,
+      }).addTo(myMap);
+
+      let marcador = L.marker([
+        position.coords.latitude,
+        position.coords.longitude,
+      ]).addTo(myMap);
     } else {
+      // SI muestra la altitud
       `<ul>
     <li>Latitud: <b>${position.coords.latitude}</b></li>
     <li>Longitud: <b>${position.coords.longitude}</b></li>
@@ -56,6 +67,17 @@ function getGeolocation(id) {
     <li>Presición de GPS: <b>${position.coords.accuracy.toFixed(0)}m</b></li>
    </ul>
    `;
+      // Código para pintar el mapa
+      let myMap = L.map("myMap").setView([latitud, longitud], 14);
+
+      L.tileLayer(tilesProvider, {
+        maxZoom: 20,
+      }).addTo(myMap);
+
+      let marcador = L.marker([
+        position.coords.latitude,
+        position.coords.longitude,
+      ]).addTo(myMap);
     }
   };
 
@@ -64,7 +86,7 @@ function getGeolocation(id) {
   };
 
   // En el método getCurrentPosition le damos los parámetro: (qué hacer si es exitosa la obtención de coordenadas, qué hacer si da error, y las opciones)
-  navigator.geolocation.getCurrentPosition(success, error, options);
+  navigator.geolocation.watchPosition(success, error, options);
 
   // también existe el método "watchPosition" para ir actualizando la posición, lo que se usa por ejemplo para ver la ubicación en tiempo real, que se vaya desplazando.
   // navigator.geolocation.watchPosition;
