@@ -10,29 +10,40 @@
  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
   crossorigin="" />
+ <!--  Fuente de google -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+ <header class="header">
+  <h4>SERGIO DEV</h4>
+  <h1>APLICACIÓN DE SEGUIMIENTO GPS</h1>
+ </header>
+
  <div>
-  <img src="dev-plant.jpg" alt="la dev plant" width="100%" height="30%">
+  <img src="dev-plant.jpg" alt="la dev plant" width="100%" height="20%">
  </div>
 
- <h1>Prueba Google Maps</h1>
+ <h1>Ubicación GPS</h1>
 
+ <div id="datosGPS"></div>
 
-
- <h2>Aquí arriba debería aparecer</h2>
-
- <!-- librería para el mapa de leaflet -->
  <div id="myMap"></div>
  <br>
  <div class="video">
-  <a href="https://www.youtube.com/watch?v=KVjdId6NelA">Ver video tutorial en youtube</a>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/KVjdId6NelA" title="YouTube video player"
+   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+   allowfullscreen></iframe>
  </div>
 
+ <!-- librería para el mapa de leaflet -->
  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
   crossorigin=""></script>
+ <!-- JavaScript para inserción del mapa -->
  <script src="map.js"></script>
 </body>
 
