@@ -27,9 +27,15 @@ body {
   overflow-x: hidden;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+.plantaDev {
+  display: flex;
+}
+
+#plantaDev {
+  width: 100%;
+  max-height: 25vh;
+  object-fit: cover;
+  object-position: 50% 70%;
 }
 
 .header {
@@ -50,7 +56,14 @@ img {
 }
 
 #myMap {
-  height: 50vh;
+  height: 70vh;
+}
+
+.ubic {
+  background-color: rgba(253, 224, 129, 0.8);
+  padding: 2rem;
+  margin: 0.5rem 0.5rem 2rem;
+  border-radius: 15px;
 }
 
 /* - - - - - Network Status  - - - - - -  */

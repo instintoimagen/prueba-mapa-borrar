@@ -38,55 +38,54 @@ function getGeolocation(id) {
     };
 
   const success = (position) => {
-    // Acualización automática mediante setInterval
-    let periodicidad = setInterval(() => {
-      if (position.coords.altitude === null) {
-        // Si NO muestra la altitud, este código se ejecuta:
-        $id.innerHTML = `<p><mark>Tu posición actual es:</mark></p> <ul>
+    // Acualización automática mediante un listener y .reload()
+
+    if (position.coords.altitude === null) {
+      // Si NO muestra la altitud, este código se ejecuta:
+      $id.innerHTML = `<p>Tu posición actual es:</p> <ul>
     <li>Latitud: <b>${position.coords.latitude}</b></li>
     <li>Longitud: <b>${position.coords.longitude}</b></li>
     <li>Presición de GPS: <b>${position.coords.accuracy.toFixed(0)}m</b></li>
    </ul>
    `;
-        // Código para pintar el mapa
-        let myMap = L.map("myMap").setView(
-          [position.coords.latitude, position.coords.longitude],
-          14
-        );
+      // Código para pintar el mapa
+      let myMap = L.map("myMap").setView(
+        [position.coords.latitude, position.coords.longitude],
+        16
+      );
 
-        L.tileLayer(tilesProvider, {
-          maxZoom: 20,
-        }).addTo(myMap);
+      L.tileLayer(tilesProvider, {
+        maxZoom: 20,
+      }).addTo(myMap);
 
-        let marcador = L.marker([
-          position.coords.latitude,
-          position.coords.longitude,
-        ]).addTo(myMap);
-      } else {
-        // SI muestra la altitud:
-        `<p><mark>Tu posición actual es:</mark></p> <ul>
+      let marcador = L.marker([
+        position.coords.latitude,
+        position.coords.longitude,
+      ]).addTo(myMap);
+    } else {
+      // SI muestra la altitud:
+      `<p>Tu posición actual es:</p> <ul>
     <li>Latitud: <b>${position.coords.latitude}</b></li>
     <li>Longitud: <b>${position.coords.longitude}</b></li>
     <li>Altitud: <b>${position.coords.altitude}</b></li>
     <li>Presición de GPS: <b>${position.coords.accuracy.toFixed(0)}m</b></li>
    </ul>
    `;
-        // Código para pintar el mapa
-        let myMap = L.map("myMap").setView(
-          [position.coords.latitude, position.coords.longitude],
-          14
-        );
+      // Código para pintar el mapa
+      let myMap = L.map("myMap").setView(
+        [position.coords.latitude, position.coords.longitude],
+        14
+      );
 
-        L.tileLayer(tilesProvider, {
-          maxZoom: 20,
-        }).addTo(myMap);
+      L.tileLayer(tilesProvider, {
+        maxZoom: 20,
+      }).addTo(myMap);
 
-        let marcador = L.marker([
-          position.coords.latitude,
-          position.coords.longitude,
-        ]).addTo(myMap);
-      }
-    }, 3000);
+      let marcador = L.marker([
+        position.coords.latitude,
+        position.coords.longitude,
+      ]).addTo(myMap);
+    }
   };
 
   const error = (err) => {
@@ -103,3 +102,7 @@ function getGeolocation(id) {
 document.addEventListener("DOMContentLoaded", (e) =>
   getGeolocation("datosGPS")
 );
+
+setTimeout(() => {
+  location.reload();
+}, 7000);
